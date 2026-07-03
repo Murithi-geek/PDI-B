@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDI Achievers Mentorship Association</title>
+    <link rel="icon" type="image/jpeg" href="PDI.jpeg">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GH06VJPVRY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GH06VJPVRY');
+    </script>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #D32F2F;
+            --secondary-blue: #1976D2;
+            --background-white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-white);
+        }
+
+        /* Navigation Styles */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav__logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-blue); /* Changed from red to blue */
+        }
+
+        .nav__menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav__link:hover,
+        .nav__link--active {
+            color: var(--primary-red);
+            background-color: rgba(211, 47, 47, 0.1);
+        }
+
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Main Content Styles */
+        .main {
+            margin-top: 70px;
+        }
+
+        .section {
+            display: none;
+            min-height: calc(100vh - 70px);
+            padding: 4rem 2rem;
+        }
+
+        .section--active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Home Page Styles */
+        .hero {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100vh - 70px);
+        }
+
+        .hero__title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-blue); /* Changed from red to blue */
+        }
+
+        .hero__subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .values {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .values__label {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .values__text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-red); /* Changed from blue to red */
+            min-width: 200px;
+            transition: var(--transition);
+        }
+
+        /* About Page Styles */
+        .about {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 2rem 0;
+        }
+
+        .about__card {
+            background: var(--background-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .about__card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .about__card-title {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .about__card-content {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Programmes Page Styles */
+        .programmes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .programme {
+            position: relative; /* Needed for ripple positioning */
+            background: var(--background-white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        /* Ripple effect styles */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background-color: rgba(25, 118, 210, 0.3); /* blue ripple */
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .programme:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .programme__header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-blue));
+            color: white;
+        }
+
+        .programme__title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .programme__summary {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .programme__content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .programme__content--expanded {
+            padding: 1.5rem;
+            max-height: 300px;
+        }
+
+        .programme__description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .programme__arrow {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            font-size: 1.5rem;
+            color: white;
+            background: rgba(25, 118, 210, 0.2);
+            border-radius: 50%;
+            padding: 0.2em 0.4em;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            z-index: 3;
+        }
+
+        .programme__arrow--hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Gallery Page Styles */
+        .gallery {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
+
+        .gallery__title {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 2rem;
+        }
+
+        .gallery__facebook-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--secondary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .gallery__facebook-link:hover {
+            background: #1565C0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
+        }
+
+        .gallery__facebook-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Contact Page Styles */
+        .contact {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+            text-align: center;
+        }
+
+        /* Team Page Styles */
+        .team {
+            padding: 2rem 0;
+        }
+
+        .team__title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 3rem;
+        }
+
+        .team__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team__member {
+            background: var(--background-white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team__member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .team__member-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team__member-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .team__member-avatar {
+            font-size: 5rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .team__member-info {
+            padding: 1.5rem;
+        }
+
+        .team__member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .team__member-position {
+            font-size: 1rem;
+            color: var(--secondary-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team__member-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .team__member--director {
+            grid-column: 1 / -1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .team__member--director .team__member-image {
+            background: linear-gradient(135deg, var(--primary-red), #B71C1C);
+        }
+
+        .team__member--director .team__member-position {
+            color: var(--primary-red);
+            font-size: 1.1rem;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+            text-align: center;
+        }
+
+        .contact__title {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 3rem;
+        }
+
+        .contact__info {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .contact__item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--background-white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .contact__item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact__link {
+            text-decoration: none;
+            color: var(--secondary-blue);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .contact__link:hover {
+            color: var(--primary-red);
+        }
+
+        .contact__icon {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Add Events Section Styles */
+        .events {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+        }
+
+        .events__title {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 2rem;
+        }
+
+        .events__list {
+            display: grid;
+            gap: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .events__item {
+            background: var(--background-white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .events__item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.15);
+        }
+
+        .events__item-title {
+            font-size: 1.3rem;
+            color: var(--secondary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .events__item-date {
+            font-size: 1rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .events__item-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav__menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--background-white);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+
+            .nav__menu--active {
+                left: 0;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            .hero__title {
+                font-size: 2rem;
+            }
+
+            .hero__subtitle {
+                font-size: 1.2rem;
+            }
+
+            .values {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .values__text {
+                min-width: auto;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .programmes {
+                grid-template-columns: 1fr;
+            }
+
+            .team__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team__member--director {
+                grid-column: 1;
+            }
+
+            .contact__info {
+                gap: 1rem;
+            }
+
+            .events__list {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .events__title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .nav__container {
+                padding: 0 1rem;
+            }
+
+            .hero__title {
+                font-size: 1.8rem;
+            }
+
+            .gallery__title,
+            .contact__title {
+                font-size: 2rem;
+            }
+
+            .events__item {
+                padding: 1rem;
+            }
+
+            .events__title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="#home" class="nav__logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                <img src="PDI.jpeg" alt="PDI Achievers Logo" style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover;">
+                <span>PDI Achievers</span>
+            </a>
+            <!-- Update Navigation: Add Events link -->
+            <ul class="nav__menu" id="navMenu">
+                <li><a href="#home" class="nav__link nav__link--active" data-section="home">Home</a></li>
+                <li><a href="#about" class="nav__link" data-section="about">About</a></li>
+                <li><a href="#programmes" class="nav__link" data-section="programmes">Programmes</a></li>
+                <li><a href="#team" class="nav__link" data-section="team">Team</a></li>
+                <li><a href="#gallery" class="nav__link" data-section="gallery">Gallery</a></li>
+                <li><a href="#events" class="nav__link" data-section="events">Events</a></li>
+                <li><a href="#contact" class="nav__link" data-section="contact">Contact Us</a></li>
+            </ul>
+            <button class="nav__toggle" id="navToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Section -->
+        <section class="section section--active" id="home">
+            <div class="container">
+                <div class="hero">
+                    <h1 class="hero__title">PDI Achievers Mentorship Association</h1>
+                    <p class="hero__subtitle">Empowering leaders through mentorship and excellence</p>
+                    <div class="values">
+                        <span class="values__label">Our Core Value:</span>
+                        <span class="values__text" id="valuesText">Consistency</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="about">
+                    <div class="about__card">
+                        <h2 class="about__card-title">Mission</h2>
+                        <div class="about__card-content">
+                            <p>To provide the knowledge, tools, and resources individuals need to achieve their personal and professional goals in a supportive and collaborative learning environment.</p>
+                        </div>
+                    </div>
+                    <div class="about__card">
+                        <h2 class="about__card-title">Vision</h2>
+                        <div class="about__card-content">
+                            <p>To empower individuals to reach their full potential by providing world-class personal development training and coaching that inspires growth, creativity and innovation.</p>
+                        </div>
+                    </div>
+                    <div class="about__card">
+                        <h2 class="about__card-title">Word on PDI</h2>
+                        <div class="about__card-content">
+                            <p>PDI is a team of dedicated professionals committed to providing top-notch virtual training and coaching to entrepreneurs and other professionals. Our aim is to help individuals enhance their skills, improve their performance, and achieve their goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programmes Section -->
+        <section class="section" id="programmes">
+            <div class="container">
+                <div class="programmes">
+                    <div class="programme" data-programme="personal">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Personal Mentorship</h3>
+                            <p class="programme__summary">One-on-one guidance for personal development</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>Our personal mentorship program pairs you with experienced mentors who provide individualized guidance tailored to your specific goals and challenges. Through regular sessions, you'll develop essential life skills, build confidence, and create actionable plans for personal growth.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="business">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Business Clinic</h3>
+                            <p class="programme__summary">Strategic business guidance and solutions</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>Join our business clinic to receive expert advice on entrepreneurship, business strategy, and professional development. Our experienced business mentors provide practical insights, help you navigate challenges, and support your journey to business success.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="career">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Career Guidance</h3>
+                            <p class="programme__summary">Professional career development support</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>Navigate your career path with confidence through our comprehensive career guidance program. We offer resume building, interview preparation, career transition support, and professional skill development to help you achieve your career aspirations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="networking">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Networking</h3>
+                            <p class="programme__summary">Building meaningful professional connections</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>Expand your professional network through our organized networking events, workshops, and social gatherings. Connect with like-minded individuals, industry professionals, and potential collaborators in a supportive environment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="sensitization">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Member Sensitization</h3>
+                            <p class="programme__summary">Awareness and education programs</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>Stay informed and engaged through our member sensitization programs. We provide educational workshops, awareness sessions, and training programs on relevant topics to keep our community informed and empowered.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="industry-capacity">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Industry Capacity Building</h3>
+                            <p class="programme__summary">Enhancing skills and knowledge for industry professionals</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>
+                                    Our Industry Capacity Building programme is designed to equip professionals with up-to-date skills, knowledge, and best practices relevant to their sectors. Through workshops, seminars, and expert-led sessions, participants gain practical insights to boost productivity and innovation in their industries.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="programme" data-programme="young-managers">
+                        <div class="programme__header">
+                            <h3 class="programme__title">Young Managers Mentorship</h3>
+                            <p class="programme__summary">Guidance for emerging leaders and managers</p>
+                            <span class="programme__arrow">&#x25BC;</span>
+                        </div>
+                        <div class="programme__content">
+                            <div class="programme__description">
+                                <p>
+                                    The Young Managers Mentorship programme supports aspiring and newly appointed managers with mentorship from experienced leaders. Participants develop leadership, decision-making, and people management skills to excel in their managerial roles.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section" id="team">
+            <div class="container">
+                <h2 class="team__title">Our Team</h2>
+                <div class="team__grid">
+                    <div class="team__member team__member--director">
+                        <div class="team__member-image" style="background: none;">
+                            <img src="Ndirangu.jpeg" alt="Dr.Ann Ndirangu" style="width:100%; height:100%; object-fit:cover; border-radius:0; position:relative; z-index:1;">
+                        </div>
+                        <div class="team__member-info">
+                            <h3 class="team__member-name">Dr.Ann Ndirangu</h3>
+                            <p class="team__member-position">Director & Founder</p>
+                            <p class="team__member-description">
+                                Visionary Leader and Founder of PDI Achievers. Holder of PhD in Entrepreneurship. A Certified Human Resource Professional. Superb Community Mobilizer and Personal Development Influencer. A Loving Mother.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="team__member">
+                        <div class="team__member-image" style="background: none;">
+                            <img src="ann murithi.jpeg" alt="Ann Murithi" style="width:100%; height:100%; object-fit:cover; border-radius:0; position:relative; z-index:1;">
+                        </div>
+                        <div class="team__member-info">
+                            <h3 class="team__member-name">Ann Murithi</h3>
+                            <p class="team__member-position">Deputy Director</p>
+                            <p class="team__member-description">
+                                A Master`s Degree Holder in Education. An Educationist with a 5 decades background in Education. A High School Principal for 13 Years. A dedicated Youth Empowerment Advocate. A Community Organizer. A Career Coach.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="team__member">
+                        <div class="team__member-image" style="background: none;">
+                            <img src="john.jpeg" alt="John Wachira" style="width:100%; height:100%; object-fit:cover; border-radius:0; position:relative; z-index:1;">
+                        </div>
+                        <div class="team__member-info">
+                            <h3 class="team__member-name">John Wachira</h3>
+                            <p class="team__member-position">Finance Officer</p>
+                            <p class="team__member-description">
+                                A PMP Certified Construction Project Management Consultant with a Bachelors in Construction Management, Diploma in Leadership and Governance, and Facilities Manager with over 10 years experience in the Building Industry.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="team__member">
+                        <div class="team__member-image" style="background: none;">
+                            <img src="Jimnah.jpeg" alt="Jimnah" style="width:100%; height:100%; object-fit:cover; border-radius:0; position:relative; z-index:1;">
+                        </div>
+                        <div class="team__member-info">
+                            <h3 class="team__member-name">Jimnah Irungu</h3>
+                            <p class="team__member-position">Strategy Expert</p>
+                            <p class="team__member-description">
+                                Holder of PhD in Business Administration majored in Strategic Management. A Member of Kenya Institute of Managers. A Patriotic Technocrat.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="team__member">
+                        <div class="team__member-image" style="background: none;">
+                            <img src="MK.jpeg" alt="Koome" style="width:100%; height:100%; object-fit:cover; border-radius:0; position:relative; z-index:1;">
+                        </div>
+                        <div class="team__member-info">
+                            <h3 class="team__member-name">Mworia Koome</h3>
+                            <p class="team__member-position">Math Stack Engineer</p>
+                            <p class="team__member-description">
+                                Founder and CEO Mworia Koome Foundation. PURES Alumni. Mathematician. Computer Scientist. Community Organizer. Writer.Youth Leader. Life Coach. Political Beast.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section" id="gallery">
+            <div class="container">
+                <div class="gallery">
+                    <h2 class="gallery__title">Gallery</h2>
+                    <div class="gallery__images" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.29 (3).jpeg" alt="Gallery Image 1" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.29.jpeg" alt="Gallery Image 2" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.30 (1).jpeg" alt="Gallery Image 3" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.30 (2).jpeg" alt="Gallery Image 4" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.30 (3).jpeg" alt="Gallery Image 5" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.30.jpeg" alt="Gallery Image 6" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.31 (1).jpeg" alt="Gallery Image 7" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.31 (2).jpeg" alt="Gallery Image 8" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.31.jpeg" alt="Gallery Image 9" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.32 (1).jpeg" alt="Gallery Image 10" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.32 (2).jpeg" alt="Gallery Image 11" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.32 (3).jpeg" alt="Gallery Image 12" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.32.jpeg" alt="Gallery Image 13" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.33 (1).jpeg" alt="Gallery Image 14" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.33 (2).jpeg" alt="Gallery Image 15" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.33.jpeg" alt="Gallery Image 16" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.34 (1).jpeg" alt="Gallery Image 17" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.34 (2).jpeg" alt="Gallery Image 18" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.34 (3).jpeg" alt="Gallery Image 19" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.35 (1).jpeg" alt="Gallery Image 20" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.35 (2).jpeg" alt="Gallery Image 21" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.35.jpeg" alt="Gallery Image 22" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.36 (1).jpeg" alt="Gallery Image 23" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.36 (2).jpeg" alt="Gallery Image 24" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.36.jpeg" alt="Gallery Image 25" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.37 (1).jpeg" alt="Gallery Image 26" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.37 (2).jpeg" alt="Gallery Image 27" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.37 (3).jpeg" alt="Gallery Image 28" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.37.jpeg" alt="Gallery Image 29" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.29 (1).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.28.jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.28 (1).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.27.jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.27 (2).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.26 (2).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.26 (1).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                        <img src="WhatsApp Image 2025-08-12 at 13.27.20 (1).jpeg" alt="Gallery Image" style="height:160px; width:auto; border-radius:8px;">
+                    </div>
+                    <div style="margin-top:2rem; text-align:center;">
+                        <a href="https://www.facebook.com/yourfacebookpage" target="_blank" class="gallery__facebook-link">
+                            Visit our Facebook account
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Events Section (new page) -->
+        <section class="section" id="events">
+            <div class="container">
+                <div class="events">
+                    <h2 class="events__title">Upcoming Events</h2>
+                    <div class="events__list">
+                        <!-- Event 1: All Thursday's Virtue Meet -->
+                        <div class="events__item" style="text-align:center;">
+                            <img src="PDI.jpeg" alt="Virtue Meet" style="height:120px; width:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                            <h3 class="events__item-title">All Thursday`s Virtual Meet</h3>
+                            <p class="events__item-description">
+                                <a href="https://us06web.zoom.us/chat/invite/acyar90zvk17dQG6Kw_05" target="_blank" style="color:var(--secondary-blue); text-decoration:underline; font-weight:bold;">
+                                    Join Zoom Chat 8:00 PM EAT
+                                </a>
+                            </p>
+                        </div>
+                        <!-- Event 2: Member's Workshop -->
+                        <div class="events__item" style="text-align:center;">
+                            <img src="PDI.jpeg" alt="Member's Workshop" style="height:120px; width:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                            <h3 class="events__item-title">Member`s Workshop</h3>
+                            <p class="events__item-description">
+                                Reach out for the details of the Workshop.
+                            </p>
+                        </div>
+                        <!-- Event 3 -->
+                        <div class="events__item" style="text-align:center;">
+                            <img src="Event 1.jpeg" alt="Careerfit Programme" style="height:250px; width:auto; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                            <h3 class="events__item-title">Careerfit Programme</h3>
+                            <p class="events__item-description">
+                                Reach out for the details of this event.
+                            </p>
+                        </div>
+                        <!-- Event 4 -->
+                        <div class="events__item" style="text-align:center;">
+                            <img src="Event 2.jpeg" alt="Tertiary Transition Programme" style="height:250px; width:auto; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                            <h3 class="events__item-title">Tertiary Transition Programme</h3>
+                            <p class="events__item-description">
+                                Reach out for the details of this event. <a href="https://forms.gle/YAkW8NXXY4eAhzv1A">Click here</a>
+                            </p>
+                        </div>
+                        <!-- Event 5 -->
+                        <div class="events__item" style="text-align:center;">
+                            <img src="Event 5.jpeg" alt="Event 5" style="height:250px; width:auto; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                            <h3 class="events__item-title">Passionstars Guidance</h3>
+                            <p class="events__item-description">
+                                Reach out for the details of this event.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="contact">
+                    <h2 class="contact__title">Get in Touch</h2>
+                    <div class="contact__info">
+                        <div class="contact__item">
+                            <span class="contact__icon">📞</span>
+                            <a href="tel:+254775810592" class="contact__link">+254775810592</a>
+                        </div>
+                        <div class="contact__item">
+                            <span class="contact__icon">✉️</span>
+                            <div>
+                                <a href="mailto:pdiachievers@gmail.com" class="contact__link">pdiachievers@gmail.com</a>
+                                <p class="contact__description">Email us anytime</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 PDI Achievers Mentorship Association. All rights reserved.</p>
+        <div style="margin-top: 2rem;">
+            <span style="font-weight: bold; font-size: 1.1rem;">Partners:</span>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1rem;">
+                <img src="DR.N.jpeg" alt="DR.N Logo" style="height:40px; width:auto;">
+                <img src="MKF01.jpeg" alt="MKF01 Logo" style="height:40px; width:auto;">
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation functionality
+        const navMenu = document.getElementById('navMenu');
+        const navToggle = document.getElementById('navToggle');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('nav__menu--active');
+        });
+
+        // Values rotation
+        const valuesText = document.getElementById('valuesText');
+        const values = ['Consistency', 'Integrity', 'Excellence', 'Innovation'];
+        let currentValueIndex = 0;
+
+        function rotateValues() {
+            currentValueIndex = (currentValueIndex + 1) % values.length;
+            valuesText.textContent = values[currentValueIndex];
+        }
+
+        // Start values rotation
+        setInterval(rotateValues, 3000);
+
+        // Programme cards functionality
+        const programmes = document.querySelectorAll('.programme');
+
+        programmes.forEach(programme => {
+            programme.addEventListener('click', () => {
+                const content = programme.querySelector('.programme__content');
+                const arrow = programme.querySelector('.programme__arrow');
+                const isExpanded = content.classList.contains('programme__content--expanded');
+                
+                // Collapse all other programmes and show their arrows
+                programmes.forEach(otherProgramme => {
+                    if (otherProgramme !== programme) {
+                        otherProgramme.querySelector('.programme__content').classList.remove('programme__content--expanded');
+                        otherProgramme.querySelector('.programme__arrow').classList.remove('programme__arrow--hidden');
+                    }
+                });
+                
+                // Toggle current programme and arrow
+                if (isExpanded) {
+                    content.classList.remove('programme__content--expanded');
+                    arrow.classList.remove('programme__arrow--hidden');
+                } else {
+                    content.classList.add('programme__content--expanded');
+                    arrow.classList.add('programme__arrow--hidden');
+                }
+            });
+        });
+
+        // Ripple effect on programme cards
+        document.querySelectorAll('.programme').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = card.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                card.appendChild(ripple);
+                ripple.addEventListener('animationend', () => {
+                    ripple.remove();
+                });
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('nav__menu--active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Section switching for navigation links
+        document.querySelectorAll('.nav__link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+
+                    // Remove active class from all nav links
+                    document.querySelectorAll('.nav__link').forEach(l => l.classList.remove('nav__link--active'));
+                    this.classList.add('nav__link--active');
+
+                    // Hide all sections
+                    document.querySelectorAll('.section').forEach(section => section.classList.remove('section--active'));
+
+                    // Show the selected section
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        targetSection.classList.add('section--active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+
+                    // Close mobile menu if open
+                    navMenu.classList.remove('nav__menu--active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
